@@ -12,7 +12,7 @@ import SwiftData
 struct QuesterApp: App {
     var sharedModelContainer: ModelContainer = {
         let schema = Schema([
-            Item.self,
+            Track.self,
         ])
         let modelConfiguration = ModelConfiguration(schema: schema, isStoredInMemoryOnly: false)
 
@@ -22,10 +22,13 @@ struct QuesterApp: App {
             fatalError("Could not create ModelContainer: \(error)")
         }
     }()
+    
+    @State private var audioPlayer = AudioPlayerManager()
 
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(audioPlayer)
         }
         .modelContainer(sharedModelContainer)
     }
